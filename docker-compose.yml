@@ -1,0 +1,87 @@
+version: "3.8"
+
+services:
+  micronaut-service:
+    build:
+      context: ./micronaut-service
+      dockerfile: Dockerfile
+    container_name: micronaut-service
+    environment:
+      - MICRONAUT_SERVER_HOST=0.0.0.0
+    deploy:
+      resources:
+        limits:
+          cpus: '0.05'
+          memory: 160M
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  spring-service:
+    build:
+      context: ./spring-service
+      dockerfile: Dockerfile
+    container_name: spring-service
+    ports:
+      - "8082:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.05'
+          memory: 160M
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  locust-spring:
+    build:
+      context: .
+      dockerfile: Dockerfile.locust
+    container_name: locust_spring
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./results/spring:/locust/results
+    environment:
+      - TARGET_HOST=http://spring-service:8080
+      - USERS=1000
+      - SPAWN_RATE=100
+      - DURATION=2m
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    depends_on:
+      - spring-service
+    networks:
+      - app-network
+
+  locust-micronaut:
+    build:
+      context: .
+      dockerfile: Dockerfile.locust
+    container_name: locust_micronaut
+    ports:
+      - "8088:8089"
+    volumes:
+      - ./results/micronaut:/locust/results
+    environment:
+      - TARGET_HOST=http://micronaut-service:8080
+      - USERS=1000
+      - SPAWN_RATE=100
+      - DURATION=2m
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    depends_on:
+      - micronaut-service
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
