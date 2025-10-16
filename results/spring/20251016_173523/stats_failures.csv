@@ -1,4 +1,0 @@
-Method,Name,Error,Occurrences
-POST,/api/logs,RemoteDisconnected('Remote end closed connection without response'),535
-POST,/api/logs,"gaierror(-3, 'Temporary failure in name resolution')",155
-POST,/api/logs,"ConnectionResetError(104, 'Connection reset by peer')",101

@@ -1,8 +1,0 @@
-[2025-10-16 16:47:01,447] e7442cb121e6/INFO/locust.main: Starting Locust 2.34.0
-[2025-10-16 16:47:01,447] e7442cb121e6/WARNING/locust.main: Python 3.9 support is deprecated and will be removed soon
-[2025-10-16 16:47:01,447] e7442cb121e6/INFO/locust.main: Run time limit set to 120 seconds
-[2025-10-16 16:47:01,448] e7442cb121e6/INFO/locust.runners: Ramping to 1000 users at a rate of 100.00 per second
-[2025-10-16 16:47:10,479] e7442cb121e6/INFO/locust.runners: All users spawned: {"LogsUser": 1000} (1000 total users)
-[2025-10-16 16:49:01,219] e7442cb121e6/INFO/locust.main: --run-time limit reached, shutting down
-[2025-10-16 16:49:01,383] e7442cb121e6/INFO/locust.main: writing html report to file: /locust/results/20251016_164700/report.html
-[2025-10-16 16:49:01,385] e7442cb121e6/INFO/locust.main: Shutting down (exit code 1)
